@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import swal from 'sweetalert'
 import useAuth from '../../Hooks/useAuth'
 
@@ -10,10 +9,9 @@ const Purchase = () => {
     const {id} = useParams()
     const [post ,setPost] = useState({})
     const {user} = useAuth()
-    console.log(id)
     const {register, handleSubmit,reset} = useForm()
     useEffect(() => {
-        axios.get(`http://localhost:3000/purchase/${id}`)
+        axios.get(`https://stark-cove-71679.herokuapp.com/products/${id}`)
         .then(res => {
             setPost(res.data)
         })
@@ -24,7 +22,7 @@ const Purchase = () => {
 
     const onSubmit = data => {
         data.order = post
-        axios.post(`http://localhost:5000/orders`, data)
+        axios.post(`https://stark-cove-71679.herokuapp.com/orders`, data)
         .then(res => {
             console.log(res.data)
             if(res.data.insertedId){
@@ -54,7 +52,7 @@ const Purchase = () => {
                         <div className="w-full flex-1 mx-2 svelte-1l8159u">
                             <div className="font-bold text-white text-xs leading-8 uppercase h-6 mx-2 mt-3">Price</div>
                             <div className="bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u">
-                                <input placeholder="Price" className="p-1 px-2 appearance-none outline-none w-full text-gray-800" type='number' {...register("price")}/> </div>
+                                <input placeholder="Price" className="p-1 px-2 appearance-none outline-none w-full text-gray-800" type='number' defaultValue={post.price} {...register("price")} readOnly/> </div>
                         </div>
                     </div>
                     

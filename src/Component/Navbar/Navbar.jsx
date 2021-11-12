@@ -45,7 +45,9 @@ const Navbar = () => {
                         <div className="hidden sm:block sm:ml-6">
                         <div className="flex space-x-4">
                             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                            <Link to='/dashboard' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</Link>
+                            {
+                                user?.email && <Link to='/dashboard' className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</Link>
+                            }
 
                             <Link to="/explore" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Explore</Link>
 
@@ -62,7 +64,7 @@ const Navbar = () => {
                                 {/* <!-- Profile dropdown --> */}
                                 <div className="ml-3 relative">
                                     <div>
-                                        <img className="h-8 w-8 rounded-full" src={user.photoURL} alt={user.displayName}/>
+                                        <img className="h-8 w-8 rounded-full" src={user.photoURL} alt="Mr."/>
                                     </div>
                                 </div>
                                 <span type="button" className="bg-gray-800 ml-4 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">

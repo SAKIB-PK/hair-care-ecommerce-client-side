@@ -13,7 +13,7 @@ const AddService = () => {
             price,
             description
         }
-        axios.post('http://localhost:5000/products',newData)
+        axios.post('https://stark-cove-71679.herokuapp.com/products',newData)
         .then(res => {
             if(res.data.insertedId){
                 swal({

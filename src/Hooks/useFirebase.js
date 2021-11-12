@@ -31,7 +31,7 @@ const useFirebase = () => {
     }
     const updateProfileInfo=(name,img)=>{
         updateProfile(auth.currentUser,{
-            ...user,displayName:name,photoURL:img
+            displayName:name,photoURL:img
         })
         .then(res =>{
             const newUser = {...user,displayName:name,photoURL:img}

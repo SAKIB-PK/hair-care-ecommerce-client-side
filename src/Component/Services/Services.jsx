@@ -5,7 +5,7 @@ import Service from './Service'
 const Services = () => {
     const [post,setPost] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:5000/products')
+        axios.get('https://stark-cove-71679.herokuapp.com/products')
         .then(res=>{
             setPost(res.data)
         })
