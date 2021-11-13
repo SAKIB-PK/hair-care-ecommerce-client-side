@@ -1,19 +1,29 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useHistory, useLocation } from 'react-router'
 import useAuth from '../../Hooks/useAuth'
 
 const Registration = () => {
-    const {customSignin,updateProfileInfo} = useAuth()
-    const {register, handleSubmit} = useForm()
+    const {customSignin,updateProfileInfo,setLoading,setUser} = useAuth()
+    const {register, handleSubmit,reset} = useForm()
+    let history = useHistory();
+    let location = useLocation();
+  
+    let { from } = location.state || { from: { pathname: "/" } };
 
     const onSubmit = data => {
         const {email,password,name,img}= data
+        console.log(data)
         customSignin(email,password)
         .then(result =>{
+            setLoading(true)
+            setUser(result.user)
             updateProfileInfo(name,img)
+            history.push(from)
         }).catch(err=>{
             //
-        })
+        }).finally(()=> setLoading(false))
+        reset()
     }
 
     return (

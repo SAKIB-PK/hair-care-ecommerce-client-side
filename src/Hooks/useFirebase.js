@@ -12,15 +12,19 @@ const useFirebase = () => {
 
 
     useEffect(()=>{
-        onAuthStateChanged(auth,result=>{
-            if(result){
-                setUser(result)  
-            }else{
+        const updateProfileAuth =onAuthStateChanged(auth, (user) => {
+              if (user) {
+                setUser(user)
+                // User is signed in, see docs for a list of available properties
+              } else {
+                // User is signed out
                 setUser({})
-            }
-            setLoading(false)
-        })
-    },[auth])
+              }
+              setLoading(false)
+            });
+            return ()=> updateProfileAuth
+      },[auth])
+  
     // custom email and password signin
     const customSignin =(email,password)=>{
         return createUserWithEmailAndPassword(auth,email,password)
@@ -29,19 +33,17 @@ const useFirebase = () => {
     const customLogin =(email,password)=>{
         return signInWithEmailAndPassword(auth,email,password)
     }
-    const updateProfileInfo=(name,img)=>{
-        updateProfile(auth.currentUser,{
-            displayName:name,photoURL:img
-        })
-        .then(res =>{
+    const updateProfileInfo =(name,img)=>{
+        updateProfile(auth.currentUser, {
+            displayName: name, photoURL: img
+          }).then((res) => {
             const newUser = {...user,displayName:name,photoURL:img}
             setUser(newUser)
-        })
-        .catch(err =>{
-            //
-        }).finally(()=>setLoading(false))
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          })
     }
-
     const googleSignIn = ()=>{
        return signInWithPopup(auth,googleProvider)
     }
@@ -62,6 +64,7 @@ const useFirebase = () => {
         customLogin,
         customSignOut,
         user,
+        setUser,
         loading,
         setLoading
     }

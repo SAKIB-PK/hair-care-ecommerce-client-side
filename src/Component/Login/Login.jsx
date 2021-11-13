@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router'
 import useAuth from '../../Hooks/useAuth'
 
 const Login = () => {
-    const {googleSignIn,customLogin,setLoading} = useAuth()
+    const {googleSignIn,customLogin,setLoading,setUser} = useAuth()
     const {register, handleSubmit} = useForm()
     let history = useHistory();
     let location = useLocation();
@@ -14,7 +14,9 @@ const Login = () => {
         const {email,password}= data
         customLogin(email,password)
         .then(res=>{
-        history.replace(from);
+            setLoading(true)
+            setUser(res.user)
+            history.push(from);
             //
         })
         .catch(err=>{
@@ -28,7 +30,8 @@ const Login = () => {
     const hundleGoogle = ()=>{
         googleSignIn()
         .then(result =>{
-            console.log(result.user)
+            setLoading(true)
+            setUser(result.user)
             history.replace(from);
         })
         .catch(err=>{
