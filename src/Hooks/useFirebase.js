@@ -37,8 +37,9 @@ const useFirebase = () => {
         updateProfile(auth.currentUser, {
             displayName: name, photoURL: img
           }).then((res) => {
-            const newUser = {...user,displayName:name,photoURL:img}
-            setUser(newUser)
+            // const newUser = {...user,displayName:name,photoURL:img}
+            // setUser(newUser)
+            window.location.reload()
           }).catch((error) => {
             // An error occurred
             // ...
