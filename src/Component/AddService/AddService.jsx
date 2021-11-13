@@ -34,7 +34,7 @@ const AddService = () => {
        
     }
     return (
-        <div class="font-mono bg-gray-800">
+        <div class="font-mono ">
 		{/* <!-- Container --> */}
 		<div class="container mx-auto">
 			<div class="flex justify-center px-6 py-12">

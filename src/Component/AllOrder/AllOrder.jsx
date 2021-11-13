@@ -1,9 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert'
+import Loading from '../Loading/Loading'
 import OrderProduct from '../MyOrder/OrderProduct'
 
-const allOrder = () => {
+const AllOrder = () => {
     const [post,setPost] = useState([])
     const [loading,setLoading]= useState(true)
     useEffect(() => {
@@ -14,7 +15,10 @@ const allOrder = () => {
         .catch(err => {
             //console.log(err)
             })
+            .finally(() => setLoading(false))
     },[])
+
+    
 
     const hundleDelete = (id) => {
         swal('Are you sure?','Are you sure to delete Order ?','error',{
@@ -49,6 +53,10 @@ const allOrder = () => {
                 }) 
             }
     })}
+
+    if(loading){
+        return <Loading/>
+    }
     return (
         <div className="h-screen  ">
             <div className="py-12">
@@ -71,4 +79,4 @@ const allOrder = () => {
     )
 }
 
-export default allOrder
+export default AllOrder

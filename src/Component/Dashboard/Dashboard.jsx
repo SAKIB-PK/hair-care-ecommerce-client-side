@@ -1,6 +1,10 @@
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import ArchitectureIcon from '@mui/icons-material/Architecture';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import PaymentIcon from '@mui/icons-material/Payment';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -19,7 +23,11 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import AddService from '../AddService/AddService';
+import AllOrder from '../AllOrder/AllOrder';
 import MyOrder from '../MyOrder/MyOrder';
+import Pay from '../Pay/Pay';
+import AddReview from '../Review/AddReview';
 
 const drawerWidth = 240;
 
@@ -56,6 +64,41 @@ function Dashboard(props) {
             </Link>
           </ListItem>
           <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <AddBoxIcon />
+            </ListItemIcon>
+            <Link to={`${url}/add`}>
+              <ListItemText primary="Add Service" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <ArchitectureIcon />
+            </ListItemIcon>
+            <Link to={`${url}/all-order`}>
+              <ListItemText primary="Manage All Orders" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <AddCommentIcon />
+            </ListItemIcon>
+            <Link to={`${url}/review`}>
+              <ListItemText primary="Review" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <PaymentIcon />
+            </ListItemIcon>
+            <Link to={`${url}/pay`}>
+              <ListItemText primary="Pay" />
+            </Link>
+          </ListItem>
           <Divider />
           <ListItem button>
             <ListItemIcon>
@@ -135,6 +178,18 @@ function Dashboard(props) {
         <Switch>
           <Route path={`${path}/my-order`}>
             <MyOrder />
+          </Route>
+          <Route path={`${path}/all-order`}>
+            <AllOrder />
+          </Route>
+          <Route path={`${path}/pay`}>
+            <Pay />
+          </Route>
+          <Route path={`${path}/add`}>
+            <AddService />
+          </Route>
+          <Route path={`${path}/review`}>
+            <AddReview />
           </Route>
 
         </Switch>
