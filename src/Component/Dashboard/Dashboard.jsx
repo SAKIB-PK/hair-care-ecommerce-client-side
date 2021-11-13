@@ -5,7 +5,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import PaymentIcon from '@mui/icons-material/Payment';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -25,6 +27,8 @@ import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import AddService from '../AddService/AddService';
 import AllOrder from '../AllOrder/AllOrder';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import ManageProduct from '../ManageProduct/ManageProduct';
 import MyOrder from '../MyOrder/MyOrder';
 import Pay from '../Pay/Pay';
 import AddReview from '../Review/AddReview';
@@ -69,7 +73,7 @@ function Dashboard(props) {
               <AddBoxIcon />
             </ListItemIcon>
             <Link to={`${url}/add`}>
-              <ListItemText primary="Add Service" />
+              <ListItemText primary="Add Product" />
             </Link>
           </ListItem>
           <Divider />
@@ -88,6 +92,24 @@ function Dashboard(props) {
             </ListItemIcon>
             <Link to={`${url}/review`}>
               <ListItemText primary="Review" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <PlaylistAddCheckIcon />
+            </ListItemIcon>
+            <Link to={`${url}/manage-product`}>
+              <ListItemText primary="Manage Product" />
+            </Link>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <SupervisorAccountIcon />
+            </ListItemIcon>
+            <Link to={`${url}/make-admin`}>
+              <ListItemText primary="Make Admin" />
             </Link>
           </ListItem>
           <Divider />
@@ -176,11 +198,17 @@ function Dashboard(props) {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Switch>
+          <Route path={`${path}/manage-product`}>
+            <ManageProduct />
+          </Route>
           <Route path={`${path}/my-order`}>
             <MyOrder />
           </Route>
           <Route path={`${path}/all-order`}>
             <AllOrder />
+          </Route>
+          <Route path={`${path}/make-admin`}>
+            <MakeAdmin />
           </Route>
           <Route path={`${path}/pay`}>
             <Pay />

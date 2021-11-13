@@ -18,13 +18,13 @@ const AddService = () => {
             if(res.data.insertedId){
                 swal({
                     title:"Good Job!",
-                    text:"Your Service Submitted successfully!",
+                    text:"Your Product Submitted successfully!",
                     icon:"success"
                 })
             }else{
                 swal({
                     title:"oopps!",
-                    text:"Your Service Submitted Failed!",
+                    text:"Your Product Submitted Failed!",
                     icon:"warning"
                 })
             }
@@ -47,7 +47,7 @@ const AddService = () => {
 					></div>
 					{/* <!-- Col --> */}
 					<div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-						<h3 class="pt-4 text-2xl text-center">Add Your Service</h3>
+						<h3 class="pt-4 text-2xl text-center">Add Your Product</h3>
 						<form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" onSubmit={handleSubmit(onSubmit)}>
 							<div class="mb-4 md:flex md:justify-between">
 								<div class="mb-4 md:mr-2 md:mb-0">
