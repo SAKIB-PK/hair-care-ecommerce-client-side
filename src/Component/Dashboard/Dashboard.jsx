@@ -21,12 +21,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import AddService from '../AddService/AddService';
 import AllOrder from '../AllOrder/AllOrder';
+import Loading from '../Loading/Loading';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import ManageProduct from '../ManageProduct/ManageProduct';
 import MyOrder from '../MyOrder/MyOrder';
@@ -36,10 +38,30 @@ import AddReview from '../Review/AddReview';
 const drawerWidth = 240;
 
 function Dashboard(props) {
+  const { user } = useAuth();
+  const [loading,setLoading] =useState(true);
+  const [isAdmin,setIsAdmin] = useState(false);
+  useEffect(()=>{
+    axios.get(`https://stark-cove-71679.herokuapp.com/admin?email=${user.email}`)
+    .then(res =>{
+      if(res.data.email){
+        setIsAdmin(true);
+      }else{
+        setIsAdmin(false);
+      }
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+    .finally(()=>{
+      setLoading(false);
+    })
+  },[user]);
+  
   let {path,url} = useRouteMatch();
   const {customSignOut} = useAuth();
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -67,24 +89,63 @@ function Dashboard(props) {
               <ListItemText primary="My Order" />
             </Link>
           </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <AddBoxIcon />
-            </ListItemIcon>
-            <Link to={`${url}/add`}>
-              <ListItemText primary="Add Product" />
-            </Link>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <ArchitectureIcon />
-            </ListItemIcon>
-            <Link to={`${url}/all-order`}>
-              <ListItemText primary="Manage All Orders" />
-            </Link>
-          </ListItem>
+          
+            {
+              isAdmin && 
+              <>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon>
+                  <AddBoxIcon />
+                </ListItemIcon> 
+                <Link to={`${url}/add`}>
+                  <ListItemText primary="Add Product" />
+                </Link>
+              </ListItem>
+            </>
+            }
+            {
+              isAdmin && 
+              <>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon>
+                  <ArchitectureIcon />
+                </ListItemIcon>
+                <Link to={`${url}/all-order`}>
+                  <ListItemText primary="Manage All Orders" />
+                </Link>
+              </ListItem>
+            </>
+            }
+            {
+              isAdmin && 
+              <>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon>
+                  <PlaylistAddCheckIcon />
+                </ListItemIcon>
+                <Link to={`${url}/manage-product`}>
+                  <ListItemText primary="Manage Product" />
+                </Link>
+              </ListItem>
+            </>
+            }
+            {
+              isAdmin && 
+              <>
+              <Divider />
+              <ListItem button>
+                <ListItemIcon>
+                  <SupervisorAccountIcon />
+                </ListItemIcon>
+                <Link to={`${url}/make-admin`}>
+                  <ListItemText primary="Make Admin" />
+                </Link>
+              </ListItem>
+            </>
+            }
           <Divider />
           <ListItem button>
             <ListItemIcon>
@@ -92,24 +153,6 @@ function Dashboard(props) {
             </ListItemIcon>
             <Link to={`${url}/review`}>
               <ListItemText primary="Review" />
-            </Link>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <PlaylistAddCheckIcon />
-            </ListItemIcon>
-            <Link to={`${url}/manage-product`}>
-              <ListItemText primary="Manage Product" />
-            </Link>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <SupervisorAccountIcon />
-            </ListItemIcon>
-            <Link to={`${url}/make-admin`}>
-              <ListItemText primary="Make Admin" />
             </Link>
           </ListItem>
           <Divider />
@@ -137,7 +180,9 @@ function Dashboard(props) {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
+  if(loading){
+    return <Loading/>
+  }
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
