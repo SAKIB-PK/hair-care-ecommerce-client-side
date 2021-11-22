@@ -33,6 +33,7 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import ManageProduct from '../ManageProduct/ManageProduct';
 import MyOrder from '../MyOrder/MyOrder';
 import Pay from '../Pay/Pay';
+import Payment from '../Pay/Payment';
 import AddReview from '../Review/AddReview';
 
 const drawerWidth = 240;
@@ -255,7 +256,10 @@ function Dashboard(props) {
           <Route path={`${path}/make-admin`}>
             <MakeAdmin />
           </Route>
-          <Route path={`${path}/pay`}>
+          <Route path={`${path}/pay/:id`}>
+            <Payment />
+          </Route>
+          <Route  path={`${path}/pay`}>
             <Pay />
           </Route>
           <Route path={`${path}/add`}>

@@ -8,13 +8,14 @@ const MyOrder = () => {
     const [post,setPost] = useState([])
     const {user} = useAuth()
     useEffect(() => {
-        axios.get(`https://stark-cove-71679.herokuapp.com/orders?email=${user.email}`)
+       const unSubscribe= axios.get(`https://stark-cove-71679.herokuapp.com/orders?email=${user.email}`)
         .then(res => {
             setPost(res.data)
         })
         .catch(err => {
             //console.log(err)
             })
+        return ()=> unSubscribe
     },[user])
 
     const hundleDelete = (id) => {
