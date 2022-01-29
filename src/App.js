@@ -5,6 +5,10 @@ import Home from './Component/Home/Home';
 import Login from './Component/Login/Login';
 import MyOrder from './Component/MyOrder/MyOrder';
 import Navbar from './Component/Navbar/Navbar';
+import CancelPayment from './Component/Pay/CancelPayment';
+import Checkout from './Component/Pay/Checkout';
+import FailedPayment from './Component/Pay/FailedPayment';
+import SuccessPayment from './Component/Pay/Success_Payment';
 import Purchase from './Component/Purchase/Purchase';
 import Registration from './Component/Registration/Registration';
 import Services from './Component/Services/Services';
@@ -35,9 +39,22 @@ function App() {
           <Route path='/explore'>
             <Services/>
           </Route>
+          <Route path='/checkout'>
+            <Checkout />
+          </Route>
           <PrivateRoute path='/dashboard'>
             <Dashboard/>
           </PrivateRoute>
+          {/* Payment status page */}
+          <Route path="/payment-success">
+            <SuccessPayment/>
+          </Route>
+          <Route path="/payment-cancel">
+            <CancelPayment/>
+          </Route>
+          <Route path="/payment-failed">
+            <FailedPayment/>
+          </Route>
         </Switch>
       </BrowserRouter>
     </AuthProvider>

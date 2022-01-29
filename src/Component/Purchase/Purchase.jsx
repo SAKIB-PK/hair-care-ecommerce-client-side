@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
-import swal from 'sweetalert'
 import useAuth from '../../Hooks/useAuth'
 
 const Purchase = () => {
@@ -22,20 +21,24 @@ const Purchase = () => {
 
     const onSubmit = data => {
         data.order = post
-        axios.post(`https://stark-cove-71679.herokuapp.com/orders`, data)
-        .then(res => {
-            console.log(res.data)
-            if(res.data.insertedId){
-                swal('Good Job', 'Order Successfully Submit', 'success')
-                reset()
-            }else{
-                swal('Error!', 'Order Not Submit', 'error')
-            }
+        
+        axios.post("http://localhost:5000/init",data)
+        .then(res =>{
+            window.location.replace(res.data)
+        })
+        // axios.post(`https://stark-cove-71679.herokuapp.com/orders`, data)
+        // .then(res => {
+        //     if(res.data.insertedId){
+        //         swal('Good Job', 'Order Successfully Submit', 'success')
+        //         reset()
+        //     }else{
+        //         swal('Error!', 'Order Not Submit', 'error')
+        //     }
 
-        })
-        .catch(err => {
-            // console.log(err)
-        })
+        // })
+        // .catch(err => {
+        //     // console.log(err)
+        // })
         
     }
     return (
