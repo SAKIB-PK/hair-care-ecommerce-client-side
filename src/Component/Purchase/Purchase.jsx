@@ -8,7 +8,7 @@ const Purchase = () => {
     const {id} = useParams()
     const [post ,setPost] = useState({})
     const {user} = useAuth()
-    const {register, handleSubmit,reset} = useForm()
+    const {register, handleSubmit} = useForm()
     useEffect(() => {
         axios.get(`https://stark-cove-71679.herokuapp.com/products/${id}`)
         .then(res => {
@@ -22,7 +22,7 @@ const Purchase = () => {
     const onSubmit = data => {
         data.order = post
         
-        axios.post("http://localhost:5000/init",data)
+        axios.post("https://stark-cove-71679.herokuapp.com/init",data)
         .then(res =>{
             window.location.replace(res.data)
         })

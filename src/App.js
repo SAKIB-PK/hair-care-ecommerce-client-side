@@ -46,7 +46,7 @@ function App() {
             <Dashboard/>
           </PrivateRoute>
           {/* Payment status page */}
-          <Route path="/payment-success">
+          <Route path="/payment-success/:id">
             <SuccessPayment/>
           </Route>
           <Route path="/payment-cancel">
